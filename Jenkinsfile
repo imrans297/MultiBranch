@@ -3,21 +3,21 @@ pipeline
     agent any
     stages
     {
-        stage('continous Download')
+        stage('continous Download_Loans')
         {
             steps
             {
                 git 'https://github.com/imrans297/Maven.git'
             }
         }
-        stage('Cont_Build')
+        stage('Cont_Build_loans')
         {
             steps
             {
                 sh 'mvn package'
             }
         }
-        stage('Cont_Deployment')
+        stage('Cont_Deployment_Loans')
         {
             steps
             {
