@@ -21,7 +21,7 @@ pipeline
         {
             steps
             {
-                sh 'scp /var/lib/jenkins/workspace/DeclerativePipelineTesting/webapp/target/webapp.war ubuntu@172.31.14.48:/var/lib/tomcat9/webapps/testapp1.war'
+                sh 'scp /var/lib/jenkins/workspace/MultiBranchPipeline/webapp/target/webapp.war ubuntu@172.31.82.132:/var/lib/tomcat9/webapps/testapp21.war'
             }
         }
         stage('Cont_Testing_Master')
@@ -29,14 +29,14 @@ pipeline
             steps
             {
                 git 'https://github.com/intelliqittrainings/FunctionalTesting.git'
-                sh 'java -jar /var/lib/jenkins/workspace/DeclerativePipelineTesting/testing.jar'
+                sh 'java -jar /var/lib/jenkins/workspace/MultiBranchPipeline/testing.jar'
             }
         }
         stage('cont_Delivery_Master')
         {
             steps
             {
-                sh 'scp /var/lib/jenkins/workspace/DeclerativePipelineTesting/webapp/target/webapp.war ubuntu@172.31.4.138:/var/lib/tomcat9/webapps/prodapp1.war'
+                sh 'scp /var/lib/jenkins/workspace/MultiBranchPipeline/webapp/target/webapp.war ubuntu@172.31.80.107:/var/lib/tomcat9/webapps/prodapp21.war'
             }
         }
     }
