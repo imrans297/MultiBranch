@@ -3,41 +3,46 @@ pipeline
     agent any
     stages
     {
-        stage('continous Download_Master')
+        stage('Cont-Download')
         {
             steps
             {
-                git 'https://github.com/imrans297/Maven.git'
+                git 'https://github.com/intelliqittrainings/maven.git'
             }
         }
-        stage('Cont_Build_Master')
+        stage('Cont-Build')
         {
             steps
             {
                 sh 'mvn package'
             }
         }
-        stage('Cont_Deployment_Master')
+        stage('Cont-Deployment')
         {
             steps
             {
-                sh 'scp /var/lib/jenkins/workspace/MultiBranchPipeline/webapp/target/webapp.war ubuntu@172.31.82.132:/var/lib/tomcat9/webapps/testapp21.war'
+                sh 'scp /var/lib/jenkins/workspace/declerative-pipeline1/webapp/target/webapp.war ubuntu@172.31.82.132:/var/lib/tomcat9/webapps/test12.war'
             }
         }
-        stage('Cont_Testing_Master')
+        stage('Cont-Testing')
         {
             steps
             {
                 git 'https://github.com/intelliqittrainings/FunctionalTesting.git'
-                sh 'java -jar /var/lib/jenkins/workspace/MultiBranchPipeline/testing.jar'
+                sh 'java -jar /var/lib/jenkins/workspace/declerative-pipeline1/testing.jar'
             }
         }
-        stage('cont_Delivery_Master')
+    }    
+    post
+    {
+        success
         {
-            steps
-            {
-                sh 'scp /var/lib/jenkins/workspace/MultiBranchPipeline/webapp/target/webapp.war ubuntu@172.31.80.107:/var/lib/tomcat9/webapps/prodapp21.war'
-            }
+            input message: 'Need approval of DM', submitter: 'Hari'
+            sh 'scp /var/lib/jenkins/workspace/declerative-pipeline1/webapp/target/webapp.war ubuntu@172.31.80.107:/var/lib/tomcat9/webapps/prodapp12.war'
+        }
+        failure
+        {
+            mail bcc: '', body: 'the jenkins CI-CD fails look into it as soon as possible', cc: '', from: '', replyTo: '', subject: 'Jenkins CI-CD fails', to: 'imrans297@outlook.com'
         }
     }
 }
